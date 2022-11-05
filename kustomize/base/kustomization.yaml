@@ -1,0 +1,3 @@
+resources:
+- rqlite-service.yaml
+- rqlite-statefulset.yaml
