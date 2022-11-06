@@ -1,4 +1,5 @@
 resources:
   - ../../base
 patchesStrategicMerge:
-  - rqlite-nodeport.yaml
+  - server-deployment.yaml
+  - server-service.yaml
