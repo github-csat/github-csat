@@ -7,7 +7,7 @@ spec:
     matchLabels:
       app: rqlite # has to match .spec.template.metadata.labels
   serviceName: rqlite-svc-internal
-  replicas: 5
+  replicas: 3
   podManagementPolicy: "Parallel"
   template:
     metadata:
