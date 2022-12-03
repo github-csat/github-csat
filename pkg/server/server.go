@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"net/http"
-	"time"
 )
 
 type Handlers struct {
@@ -35,8 +34,6 @@ func Main() error {
 func (h *Handlers) HandleSubmit(c *gin.Context) {
 	issueURL := c.Query("issue")
 	responseValue := c.Query("response")
-
-	time.Sleep(100 * time.Millisecond)
 
 	c.String(http.StatusOK, "Your response on %s has been recorded as %s", issueURL, responseValue)
 }
