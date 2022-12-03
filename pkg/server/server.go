@@ -1,9 +1,13 @@
 package server
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
+	"io"
+	"log"
 	"net/http"
 )
 
@@ -32,8 +36,44 @@ func Main() error {
 }
 
 func (h *Handlers) HandleSubmit(c *gin.Context) {
-	issueURL := c.Query("issue")
-	responseValue := c.Query("response")
+	ghUsername := "its_fake"
+	issueURL := c.Query("issue_url")
+	feedback := c.Query("feedback")
 
-	c.String(http.StatusOK, "Your response on %s has been recorded as %s", issueURL, responseValue)
+	body := [][]string{
+		{
+			`
+		INSERT INTO satisfactions 
+		(
+			gh_username,
+			issue_url,
+			feedback
+		) VALUES (?, ?, ?)`,
+			ghUsername, issueURL, feedback,
+		},
+	}
+
+	jsonBody, err := json.Marshal(body)
+	if err != nil {
+		c.AbortWithError(500, err)
+		return
+	}
+
+	resp, err := http.Post(
+		fmt.Sprintf("%s/db/execute?pretty&timings", h.RQLiteURL),
+		"application/json",
+		bytes.NewReader(jsonBody),
+	)
+
+	defer resp.Body.Close()
+
+	responseBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	//Write your 200 header status (or other status codes, but only WriteHeader once)
+	c.Writer.WriteHeader(http.StatusOK)
+	//Convert your cached html string to byte array
+	c.Writer.Write([]byte(fmt.Sprintf("<html><body>We sent <p><pre>%s</pre><p> and got <pre>%s</pre></body></html>", jsonBody, responseBytes)))
 }
