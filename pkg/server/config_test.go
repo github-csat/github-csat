@@ -6,20 +6,19 @@ import (
 	"testing"
 )
 
-
 func TestConfig(t *testing.T) {
 	tests := []struct {
-		name string
-		env map[string]string
-		expect *Config
+		name    string
+		env     map[string]string
+		expect  *Config
 		wantErr error
 	}{
 		{
 			name: "defaults",
-			env: nil,
+			env:  nil,
 			expect: &Config{
 				GinAddress: ":8080",
-				RQLiteURL: "http://localhost:4001",
+				RQLiteURL:  "http://localhost:4001",
 			},
 		},
 		{
@@ -29,7 +28,7 @@ func TestConfig(t *testing.T) {
 			},
 			expect: &Config{
 				GinAddress: ":8081",
-				RQLiteURL: "http://localhost:4001",
+				RQLiteURL:  "http://localhost:4001",
 			},
 		},
 	}
@@ -53,4 +52,3 @@ func TestConfig(t *testing.T) {
 		})
 	}
 }
-

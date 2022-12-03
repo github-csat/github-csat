@@ -29,3 +29,11 @@ dev-init-table: dev-deps
 	curl -XPOST 'localhost:4001/db/execute?pretty&timings' \
 	  -H "Content-Type: application/json" \
 	  -d '["CREATE TABLE satisfactions (gh_username TEXT, issue_url TEXT, feedback TEXT, satisfied_at DATETIME DEFAULT CURRENT_TIMESTAMP, issue_created DATETIME, issue_closed DATETIME)"]'
+
+
+.PHONY: run
+run: 
+	go run ./cmd/github-csat
+
+fmt:
+	go fmt ./...
