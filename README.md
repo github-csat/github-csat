@@ -1,13 +1,27 @@
 # github-csat
 
-
-
-
 ### Developing
 
 ```shell
 make dev-deps
-tilt up
+make dev-cluster
+make kustomize-deploy-dev
 ```
 
-Tilt provides a task to create a kind cluster if you do not already have one, but this does not run by default. You can trigger it via the tilt UI, or just run `kind create cluster`.
+run the main server
+
+```
+go run cmd/github-csat
+```
+
+
+in another shell
+
+```
+make dev-ping-rqlite
+```
+
+
+### RQLITE
+
+good video here https://www.philipotoole.com/rqlite-at-the-cmu-database-group/  

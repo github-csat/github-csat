@@ -7,19 +7,19 @@ dev-deps:
 	[ -x "$(shell which kustomize)" ] || brew install kustomize
 
 .PHONY: dev-cluster
-dev-cluster:
+dev-cluster: dev-deps
 	kind create cluster --config kind-dev-cluster.yaml
 
 .PHONY: kustomize-deploy-dev
-kustomize-deploy-dev:
+kustomize-deploy-dev: dev-deps
 	kustomize build kustomize/overlays/dev | kubectl apply -f -
 
 .PHONY: dev-clean
-dev-clean:
+dev-clean: dev-deps
 	kind delete cluster
 
 .PHONY: dev-ping-rqlite
-dev-ping-rqlite:
+dev-ping-rqlite: dev-deps
 	curl -XPOST 'localhost:4001/db/execute?pretty&timings' \
 	  -H "Content-Type: application/json" \
 	  -d '["CREATE TABLE foo (id INTEGER NOT NULL PRIMARY KEY, name TEXT, age INTEGER)"]'
