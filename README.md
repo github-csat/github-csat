@@ -6,21 +6,20 @@
 make dev-deps
 make dev-cluster
 make kustomize-deploy-dev
-```
 
-run the main server
 
 ```
-go run cmd/github-csat
-```
-
-
 in another shell
 
 ```
 make dev-ping-rqlite
 ```
 
+run the main server
+
+```
+go run ./cmd/github-csat
+```
 
 ### RQLITE
 
