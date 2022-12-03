@@ -1,5 +1,5 @@
 resources:
 - rqlite-service.yaml
 - rqlite-statefulset.yaml
-- server-deployment.yaml
-- server-service.yaml
+#- server-deployment.yaml
+#- server-service.yaml
