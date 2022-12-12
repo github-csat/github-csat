@@ -7,13 +7,13 @@ import (
 
 type Config struct {
 	GinAddress string `env:"GIN_ADDRESS"`
-	RQLiteURL string `env:"RQLITE_URL"`
+	RQLiteURL  string `env:"RQLITE_URL"`
 }
 
 func LoadConfig() (*Config, error) {
 	config := Config{
 		GinAddress: ":8080",
-		RQLiteURL: "http://localhost:4001",
+		RQLiteURL:  "http://localhost:4001",
 	}
 
 	if err := env.Set(&config); err != nil {

@@ -72,8 +72,13 @@ func (h *Handlers) HandleSubmit(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
-	//Write your 200 header status (or other status codes, but only WriteHeader once)
 	c.Writer.WriteHeader(http.StatusOK)
-	//Convert your cached html string to byte array
-	c.Writer.Write([]byte(fmt.Sprintf("<html><body>We sent <p><pre>%s</pre><p> and got <pre>%s</pre></body></html>", jsonBody, responseBytes)))
+	c.Writer.Write([]byte(fmt.Sprintf(
+		`
+<html><body>
+  We sent 
+    <p><pre>%s</pre><p> 
+  and got 
+    <p><pre>%s</pre><p>
+</body></html>`, jsonBody, responseBytes)))
 }
