@@ -30,9 +30,33 @@ func Main() error {
 
 	router := gin.Default()
 	router.GET("/submit", handlers.HandleSubmit)
+	router.GET("/satisfactions", handlers.HandleSatisfactions)
 	err = router.Run(conf.GinAddress)
 
 	return errors.Wrap(err, "run gin http server")
+}
+
+func (h *Handlers) HandleSatisfactions(c *gin.Context) {
+	body := []string{
+		"SELECT * FROM satisfactions",
+	}
+
+	jsonBody, err := json.Marshal(body)
+
+	if err != nil {
+		c.AbortWithError(500, err)
+		return
+	}
+
+	resp, err := http.Post(
+		fmt.Sprintf("%s/db/query", h.RQLiteURL),
+		"application/json",
+		bytes.NewReader(jsonBody),
+	)
+
+	defer resp.Body.Close()
+
+	c.Writer.WriteHeader(http.StatusOK)
 }
 
 func (h *Handlers) HandleSubmit(c *gin.Context) {
