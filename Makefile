@@ -35,5 +35,6 @@ dev-init-table: dev-deps
 run: 
 	go run ./cmd/github-csat
 
+.PHONY: fmt
 fmt:
 	go fmt ./...

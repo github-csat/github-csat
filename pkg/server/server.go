@@ -29,6 +29,7 @@ func Main() error {
 	fmt.Println(handlers.RQLiteURL)
 
 	router := gin.Default()
+	router.GET("/", handleIndex)
 	router.GET("/submit", handlers.HandleSubmit)
 	router.GET("/satisfactions", handlers.HandleSatisfactions)
 	err = router.Run(conf.GinAddress)
@@ -53,10 +54,20 @@ func (h *Handlers) HandleSatisfactions(c *gin.Context) {
 		"application/json",
 		bytes.NewReader(jsonBody),
 	)
+	if err != nil {
+		c.AbortWithError(500, err)
+		return
+	}
 
 	defer resp.Body.Close()
 
+	responseBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	c.Writer.WriteHeader(http.StatusOK)
+	c.Writer.Write(responseBytes)
 }
 
 func (h *Handlers) HandleSubmit(c *gin.Context) {
@@ -105,4 +116,9 @@ func (h *Handlers) HandleSubmit(c *gin.Context) {
   and got 
     <p><pre>%s</pre><p>
 </body></html>`, jsonBody, responseBytes)))
+}
+
+func handleIndex(c *gin.Context) {
+	c.Writer.WriteHeader(http.StatusOK)
+	c.Writer.Write([]byte(index))
 }
