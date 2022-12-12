@@ -1,5 +1,7 @@
 # github-csat
 
+[Current Iteration](https://github.com/orgs/github-csat/projects/1/views/2) | [Next Iteration](https://github.com/orgs/github-csat/projects/1/views/3)
+
 ### Developing
 
 ```shell
@@ -23,4 +25,5 @@ go run ./cmd/github-csat
 
 ### RQLITE
 
-good video here https://www.philipotoole.com/rqlite-at-the-cmu-database-group/  
+Data API: https://github.com/rqlite/rqlite/blob/master/DOC/DATA_API.md#querying-data
+Overview Video: https://www.philipotoole.com/rqlite-at-the-cmu-database-group/  
