@@ -9,6 +9,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"time"
 )
 
 type Handlers struct {
@@ -35,6 +36,15 @@ func Main() error {
 	err = router.Run(conf.GinAddress)
 
 	return errors.Wrap(err, "run gin http server")
+}
+
+type Satisfaction struct {
+	GhUsername   string
+	IssueUrl     string
+	Feedback     string
+	SatisfiedAt  *time.Time
+	IssueCreated *time.Time
+	IssueClosed  *time.Time
 }
 
 func (h *Handlers) HandleSatisfactions(c *gin.Context) {
