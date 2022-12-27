@@ -37,7 +37,7 @@ run:
 
 .PHONY: fmt
 fmt:
-	go fmt ./...
+	test -z $(shell go fmt ./...)
 
 .PHONY: vet
 vet: fmt 
