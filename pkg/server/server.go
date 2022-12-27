@@ -30,9 +30,15 @@ func Main() error {
 	fmt.Println(handlers.RQLiteURL)
 
 	router := gin.Default()
-	router.GET("/", handleIndex)
-	router.GET("/submit", handlers.HandleSubmit)
-	router.GET("/satisfactions", handlers.HandleSatisfactions)
+
+	webRoutes := router.Group("/")
+	webRoutes.GET("/", handleIndex)
+	webRoutes.GET("/submit", handlers.HandleSubmit)
+	webRoutes.GET("/satisfactions", handlers.HandleSatisfactions)
+
+	apiRoutes := router.Group("/api")
+	apiRoutes.POST("/submit", handlers.APIHandleSubmit)
+
 	err = router.Run(conf.GinAddress)
 
 	return errors.Wrap(err, "run gin http server")
@@ -80,6 +86,22 @@ func (h *Handlers) HandleSatisfactions(c *gin.Context) {
 	c.Writer.Write(responseBytes)
 }
 
+type SubmitRequest struct {
+	IssueURL string `json:"issueUrl"`
+	Feedback string `json:"feedback"`
+}
+
+func (h *Handlers) APIHandleSubmit(c *gin.Context) {
+
+	req := SubmitRequest{}
+
+	if err := c.BindJSON(&req); err != nil {
+		c.AbortWithError(400, err)
+		return
+	}
+	// todo something with the request
+}
+
 func (h *Handlers) HandleSubmit(c *gin.Context) {
 	ghUsername := "its_fake"
 	issueURL := c.Query("issue_url")
@@ -109,13 +131,14 @@ func (h *Handlers) HandleSubmit(c *gin.Context) {
 		"application/json",
 		bytes.NewReader(jsonBody),
 	)
+	if err != nil {
+		c.AbortWithError(500, err)
+		return
+	}
 
 	defer resp.Body.Close()
 
 	responseBytes, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
 
 	c.Writer.WriteHeader(http.StatusOK)
 	c.Writer.Write([]byte(fmt.Sprintf(
