@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - ../../base
 patchesStrategicMerge:
-  - rqlite-scale.yaml
+  # - rqlite-scale.yaml
