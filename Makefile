@@ -1,5 +1,3 @@
-SHELL := /bin/zsh
-
 .PHONY: dev-deps
 dev-deps:
 	[ -x "$(shell which kubectl)" ] || brew install kubectl
@@ -37,4 +35,8 @@ run:
 
 .PHONY: fmt
 fmt:
-	go fmt ./...
+	test -z $(shell go fmt ./...)
+
+.PHONY: vet
+vet: fmt 
+	go vet ./...

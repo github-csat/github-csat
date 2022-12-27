@@ -1,0 +1,12 @@
+name: Go Static Checks
+
+on: pull_request
+
+jobs:
+  vet:
+    name: Vet
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: vet
+      run: make vet
