@@ -1,5 +1,3 @@
-SHELL := /bin/zsh
-
 .PHONY: dev-deps
 dev-deps:
 	[ -x "$(shell which kubectl)" ] || brew install kubectl
