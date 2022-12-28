@@ -4,5 +4,6 @@ namespace: default
 resources:
   - ../../base
   - ../../api
+  - ./docker-registry-creds.yaml
 patchesStrategicMerge:
   # - rqlite-scale.yaml
