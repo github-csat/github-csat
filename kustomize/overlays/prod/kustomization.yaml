@@ -5,3 +5,11 @@ resources:
   - ../../base
   - ../../api
   - ./docker-registry-creds.yaml
+patches:
+  - target:
+      kind: Deployment
+      name: github-csat-api
+    patch: |-
+      - op: add
+        path: /spec/template/spec/imagePullSecrets
+        value: [{ name: ghcr-creds }]
