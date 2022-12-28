@@ -1,12 +1,11 @@
-name: Go Static Checks
+name: Static Checks
 
 on: pull_request
 
 jobs:
-  vet:
-    name: Vet
+  static:
+    name: static Checks
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: vet
-      run: make vet
+    - run: make ci

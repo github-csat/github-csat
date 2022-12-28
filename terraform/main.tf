@@ -35,17 +35,17 @@ variable "gcp_zone" {
 }
 
 provider "google" {
-  project     = var.gcp_project
-  region      = var.gcp_region
-  zone        = var.gcp_zone
+  project = var.gcp_project
+  region  = var.gcp_region
+  zone    = var.gcp_zone
 }
 
 provider "flux" {}
 
 
 resource "google_container_cluster" "prod" {
-  name     = "github-csat-prod"
-  location = var.gcp_region
+  name             = "github-csat-prod"
+  location         = var.gcp_region
   enable_autopilot = true
 
   # sure https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630

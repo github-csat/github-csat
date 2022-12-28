@@ -35,8 +35,17 @@ run:
 
 .PHONY: fmt
 fmt:
-	test -z $(shell go fmt ./...)
+	go fmt ./...
+	cd terraform && terraform fmt
 
 .PHONY: vet
-vet: fmt 
+vet: 
 	go vet ./...
+
+	
+.PHONY: fmt-check
+fmt-check:
+	test -z $(MAKE fmt)
+
+.PHONY: ci
+ci: fmt-check vet
