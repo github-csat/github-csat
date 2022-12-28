@@ -1,6 +1,6 @@
 # soon - create a static IP for the ingress
 resource "google_compute_address" "prod-ingress" {
-  name   = "my-test-static-ip-address"
+  name   = "github-csat-prod-ingress"
   region = "us-central1"
 }
 
