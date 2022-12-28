@@ -1,0 +1,9 @@
+kind: Ingress
+metadata:
+  name: github-csat
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "github-csat-prod-ingress"
+spec:
+  backend:
+    serviceName: github-csat-api
+    servicePort: 8080
