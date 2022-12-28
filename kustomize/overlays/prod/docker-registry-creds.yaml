@@ -1,9 +1,8 @@
 apiVersion: v1
-data:
-    .dockerconfigjson: ENC[AES256_GCM,data:CRwNWuMb5r+4lZ0b1PXO4r3iGMNJ1V6wyw1As6wTBMS2XuUKBT7j03JBfwN0x+7z7JtoNgQo7SSyLEl6lJ+xHGQUUUmx+7D6bOFFN3VVacKtwYN0HsXl46SU8YwrbIWYeZOAXWzD7hj4OYGPds1iyFuRO1CDduNmrR5uo3G+1591Z0qqOD2/j3NLfHfbXTeqASq7xqBYfmAC4uAAfDqj9s0duV5NJFDBkCgME5v5ZnGr3/w7oh+eqiKGcOrmgvzHY/fCfCT/oIpoEHsxvm5wyqWDpTDRhfBIPr8DG1/7hrAvT9RN3sFhQ+DpO9q9AwBT,iv:jzv76S7wmjY7XKdv7U2G9OT6L172LM05LRsAGEK7da0=,tag:66g4PsuSo2+hDmipudkwxQ==,type:str]
+stringData:
+    .dockerconfigjson: ENC[AES256_GCM,data:T58wPLMfpPdR+c7boefsZqlUKAyA67EV1UQAtv/5mmJUYxaRAN66J0Zvy+GRKbo5GInfTa9wNjI8rF8YS/eo+AZB+kKy1d8LKWU63EBUGGUTpmzXGKnuj7WlwO9vIZGA19Q2qjy/+uXQ+JOVZGGTOfncWLF8GbANrdrqT2EeZBGxMuFEEl3pQfTNvrzbSaYSKIB7+xHAi05gUT65KxXt1oR1ErDKXuAms4nNqEtIPJluEg==,iv:70eVfSkWzffSTyJIDW1QHbIOdz8sQA+MhvRDfToSyYU=,tag:ljQSn1TBWC3U0owrSu35CQ==,type:str]
 kind: Secret
 metadata:
-    creationTimestamp: null
     name: ghcr-creds
 type: kubernetes.io/dockerconfigjson
 sops:
@@ -12,27 +11,27 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-12-28T00:03:46Z"
-    mac: ENC[AES256_GCM,data:wYl4UmBBcmga4BVqIG9CVf2UGgIq62zXF57WtvPQgy6ltOIXsmrkuu9SbDBdkCm9XvCWrD6YRaG/SNWYXtwPBbGPUVOoSuR7X/B7luK5TIwU3Q7OdwU2jLrOwAFP3q9wiEUzQtz6KI7zJz8fVPCFeh4I4kqWH+rTILZxirH5JZc=,iv:RihiV9P/7BlX/gRObRJSJIeemZab/BFqqCgTQQGANaI=,tag:OAhE4mO0qMsexXyXXobOdw==,type:str]
+    lastmodified: "2022-12-28T00:23:22Z"
+    mac: ENC[AES256_GCM,data:CWAKmqqTphmnK7hYucCoUQSbNOxZq0lc7Zvv+3tJDfLqPiuTY8JUc26oBLu+c+pyR5foM0DAsr6aN/A+UShqDpwLBPc/0N/Y+J2KkfUOaOuUKjZ4mIWYrUFCWM8UAiZEnW1wsx8rN3+uQHU7KXgSMMS8HymLBhKJRqmNk9sn91s=,iv:OXTqD6Mm70Y2Qx/pkgvHuvWIK2qFyg0Q/XCJ+ydAKl8=,tag:LCIz+UBPOcGnL5w220KYPg==,type:str]
     pgp:
-        - created_at: "2022-12-28T00:03:45Z"
+        - created_at: "2022-12-28T00:23:21Z"
           enc: |
             -----BEGIN PGP MESSAGE-----
 
-            hQIMAwAAAAAAAAAAARAAkMmUnkxCIli/HnvlhYKJ2iM/PET++IY8QDXSK9xNOz5H
-            /1ydx8H3CRwYhNyc8TVgAbaMwok/W+Q21pVQP2ANqVJgdiljthBGrncQ3jAZ8WLz
-            5nR/Hhzcv5Qr9Z3+E/3Y6hySts2ILgrcx1QZvSzcOYHYrM85tUYhl7MEgGeeQyE7
-            oIbRzWQNueGzmSs1hx61iOC9bOGQBXOj/wtKsBiFUKHMWgeCAh11QrmSKCP+iSut
-            560PHTfo0SE2XKKQy8C38IHaMV0kDzM2MbhJGFR6OOrmfgiAlZG38FXy7Rb8VTBT
-            ZBnY8Y5PKQDeGaiAM9Bs32z4lXeyHiSMjX7IF02gAZ870q5UPgwoY59C1hqgbXQ2
-            V3Y2Rqs569ZFrUbjVNS/SxqUNcI+aiB79VA+3UF3zuaOidRgrygQZuYkLBxSxNX9
-            JVOaHvKqoL+00Mdz3SuCfCMn+zRDFsGym5AKsghcWsuJOFMpGnVXgMZBwlPun30I
-            zoKDi/y+Us9ju5uChtZwPryLF9QLJjy1CNfpBKolCPWwJgYeJAuPyMQR2FBNRtb7
-            80GO1q2tDAOM+ZJ+rgY3NxxPw++cye+OHX7jghR+8wDGd4dfS1M805NB1LMVWTZH
-            VJTs1RTwMMlM0U6zXolbn6+PMdcJuFq4mgWd4T5HKzJprjHeyIlu8+bO3A4lFo/S
-            XgEA6PcyonCIDQAWjxEj+gIlooDtzJS28efWvaOzIES5wFEVt+VsB+WilW7OKjAT
-            JVLKhDXcNwMvqymoZ339rk1fa53gAduhM2kzv6Sja8b9R/I0cAdslboMIjJnc/A=
-            =9G09
+            hQIMAwAAAAAAAAAAAQ/+MvPqofnbv1IJjbnUHJZSPKVLXApTKybJjLpsHYhpAPnh
+            piS06kpHS4FEj3+RkhpkAJUdZ/LrTV9Gliy0NapBznLSNPK9pD5tmvjjCTncvoyX
+            24EvoAFYMs8WvnA9RPYdAI7Dn5yoSVBjLpFSc+99NUVoPvRMZyZCm0F2FueOQhzm
+            Sx4BI4aydm1uYwC+jCemrHLYmb0l7h8ZJfu8N4Z4nK95x4okK7u5w9MsxetCe0Dm
+            l2xvh7qocSI4AXTY4CJ8is2BYObubpHd22Hci8Lw9iFZrIYNUQ87euJdnjiRtdOz
+            ypCo7Utp0OK83uLYP6N8enV4+0yZUgMCc1Lyss8dLd3/wnE3oMDkuh18tYmE162P
+            F3W2T8IdOPGGavqviv2LvpKCPw58qZX/5j51179HJPlgnCimuYBaUZ1Yop+wHsi8
+            U6/+D6G0KGgWMb7+F+TxiQqkHXXh1h9z1asVjlUmOeg+FEnvE5BQ8mkKFCK1uc1e
+            Ja6A+mwbncznT7s0ZVf32gzKIQXpPkoWigc7M12kS++sgiP+yPkyxdM4v85uPLR2
+            mtsNA24cQ0Izhht5ROtvrxRBaI7sPVe9rgd+mow5IzCbOIR+HBe98P1wiTQ8QPdY
+            5ADay63SZeLUzYyTkcN8RNT7eBBc4A5dvPz/GUA6gJkRg8ADuMljM+eEwYUKT6LS
+            XAE/t3q8+o0KfqBZ+eb/3SSiWO0CT5driSnVPSvS3rw6PNn7QGWUxBuHEMgtPNne
+            M7uhnEICx6e/odzMHvE4UmIgG5fWs0XTZcSN4M3VUHJRK/AYx34aH746ubLJ
+            =l13/
             -----END PGP MESSAGE-----
           fp: 3F21093C93ADBA2108D2BA16787A6911AAEF4539
     encrypted_regex: ^(data|stringData)$
