@@ -5,6 +5,7 @@ resources:
   - ../../base
   - ../../api
   - ./docker-registry-creds.yaml
+  - ./ingress.yaml
 patches:
   - target:
       kind: Deployment
