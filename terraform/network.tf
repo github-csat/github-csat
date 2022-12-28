@@ -4,7 +4,6 @@ resource "google_compute_address" "prod-ingress" {
   region = "us-central1"
 }
 
-
 output "static-ip" {
-  data = google_compute_address.prod-ingress.address
+  value = google_compute_address.prod-ingress.address
 }
