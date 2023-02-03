@@ -23,7 +23,7 @@ variable "flux_token" {
 }
 
 variable "gcp_project" {
-  default = "github-csat"
+  default = "github-csat-prod"
 }
 
 variable "gcp_region" {
@@ -64,7 +64,7 @@ resource "google_service_account" "github-csat-prod" {
 resource "google_container_node_pool" "primary_preemptible_nodes" {
   name       = "github-csat-prod"
   cluster    = google_container_cluster.prod.id
-  node_count = 1
+  node_count = 1 # per *region*
 
   node_config {
     preemptible  = true

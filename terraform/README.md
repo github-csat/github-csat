@@ -1,10 +1,17 @@
-## Infrastructure
+# Infrastructure
 
 Managed in terraform cloud -- https://app.terraform.io/app
 
+### GCP
+
+- `github-csat-prod` project
+- Service Account created manually via GCP cloud console, set in [#terraform-cloud](#terraform-cloud)
+
 ### Terraform Cloud
 
-GCP access managed by status `GOOGLE_ACCOUNT_CREDENTIALS` secret in the tf workspace, service account in GCP
+
+- linked to `github-csat-prod` project
+- GCP access managed by status `GOOGLE_ACCOUNT_CREDENTIALS` secret in the tf workspace, service account in GCP
 
 ### Flux
 
@@ -19,7 +26,7 @@ Today, SOPS is primarily used for managing credentials to the GHCR registry to p
 
 Configuring SOPS requires some [manual steps to bootstrap the GPG key](https://fluxcd.io/flux/guides/mozilla-sops/). 
 This was run in a GCP cloud shell connected to the production GKE cluster.
-The flux-kustomization object configures flux to consult this key to decrypt the sops secrets on sync.
+The flux-kustomization object in this repo configures flux to consult this key to decrypt the sops secrets on sync.
 
 ### Image credentials
 
