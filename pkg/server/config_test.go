@@ -2,11 +2,15 @@ package server
 
 import (
 	"github.com/stretchr/testify/require"
+	"net/url"
 	"os"
 	"testing"
 )
 
 func TestConfig(t *testing.T) {
+
+	parsedURL, _ := url.Parse("http://localhost:3000")
+
 	tests := []struct {
 		name    string
 		env     map[string]string
@@ -17,18 +21,23 @@ func TestConfig(t *testing.T) {
 			name: "defaults",
 			env:  nil,
 			expect: &Config{
-				GinAddress: ":8080",
-				RQLiteURL:  "http://localhost:4001",
+				GinAddress:       ":8080",
+				RQLiteURL:        "http://localhost:4001",
+				ProxyFrontend:    "http://localhost:3000",
+				ProxyFrontendURL: parsedURL,
 			},
 		},
 		{
-			name: "defaults",
+			name: "change things",
 			env: map[string]string{
 				"GIN_ADDRESS": ":8081",
+				"RQLITE_URL":  "http://rqlite.com:4001",
 			},
 			expect: &Config{
-				GinAddress: ":8081",
-				RQLiteURL:  "http://localhost:4001",
+				GinAddress:       ":8081",
+				RQLiteURL:        "http://rqlite.com:4001",
+				ProxyFrontend:    "http://localhost:3000",
+				ProxyFrontendURL: parsedURL,
 			},
 		},
 	}
@@ -37,7 +46,13 @@ func TestConfig(t *testing.T) {
 			for key, value := range test.env {
 				oldValue := os.Getenv(key)
 				os.Setenv(key, value)
-				defer os.Setenv(key, oldValue)
+				if oldValue != "" {
+					//goland:noinspection GoDeferInLoop
+					defer os.Setenv(key, oldValue)
+				} else {
+					//goland:noinspection GoDeferInLoop
+					defer os.Unsetenv(key)
+				}
 			}
 
 			config, err := LoadConfig()

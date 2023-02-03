@@ -8,8 +8,6 @@
 make dev-deps
 make dev-cluster
 make kustomize-deploy-dev
-
-
 ```
 in another shell
 
@@ -17,10 +15,41 @@ in another shell
 make dev-ping-rqlite
 ```
 
-run the main server
+run the fronend
 
 ```
-go run ./cmd/github-csat
+cd frontend && npm start
+```
+
+**Note** - the above will open a browser tab at localhost:3000 - ignore this and close it. You'll use 
+the go server to access the webpack dev server via a reverse proxy. (Read on for more)
+
+run the main go server
+
+```
+make run
+```
+
+Load the frontend on `http://localhost:8080` (or whatever you set `GIN_ADDRESS` to). You should see the create-react-app.
+
+You can test the frontend/backend/database wiring by visiting `/api/satisfactions` - you may see an empty table.
+
+Create a submission with
+
+```
+make fake-submit
+```
+
+and then you can reload `/api/satisfactions` or run
+
+```
+make fake-query
+```
+
+or even
+
+```
+make fake-query | tail -n 1 | jq .
 ```
 
 ### RQLITE

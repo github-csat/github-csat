@@ -4,8 +4,10 @@ go 1.19
 
 require (
 	github.com/codingconcepts/env v0.0.0-20200821220118-a8fbf8d84482
+	github.com/gin-contrib/static v0.0.1
 	github.com/gin-gonic/gin v1.8.1
 	github.com/pkg/errors v0.9.1
+	github.com/rqlite/gorqlite v0.0.0-20221215150328-caa87cf08ea6
 	github.com/stretchr/testify v1.7.1
 )
 

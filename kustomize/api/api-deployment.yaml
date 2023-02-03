@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/github-csat/github-csat-api:main
+          image: ghcr.io/github-csat/github-csat-api:latest
           ports:
             - containerPort: 8080

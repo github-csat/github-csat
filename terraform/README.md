@@ -17,7 +17,14 @@ GitHub auth is run with a "Fine-Grained PAT" for the github-csat repo, set in TF
 
 Today, SOPS is primarily used for managing credentials to the GHCR registry to pull container images.
 
-Configuring SOPS requires some [manual steps to bootstrap the GPG key](https://fluxcd.io/flux/guides/mozilla-sops/). This was run in a GCP cloud shell connected to the production GKE cluster.
+Configuring SOPS requires some [manual steps to bootstrap the GPG key](https://fluxcd.io/flux/guides/mozilla-sops/). 
+This was run in a GCP cloud shell connected to the production GKE cluster.
+The flux-kustomization object configures flux to consult this key to decrypt the sops secrets on sync.
+
+### Image credentials
+
+While this repo is private, the docker images stored in GitHub packages are private. Credentials to pull these to GKE are manged by SOPs in
+`kustomize/overlays/prod/docker-registry-creds.yaml` - the public key for the production cluster is available there as well.
 
 #### Creating a new SOPS secret
 
