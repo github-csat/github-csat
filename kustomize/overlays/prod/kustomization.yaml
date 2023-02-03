@@ -7,6 +7,7 @@ resources:
   - ./docker-registry-creds.yaml
   - ./ingress.yaml
 patches:
+  # add the SOPS-encrypted GHCR credentials to the deployment workload
   - target:
       kind: Deployment
       name: github-csat-api

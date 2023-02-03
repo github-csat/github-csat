@@ -26,7 +26,7 @@ dev-ping-rqlite: dev-deps
 dev-init-table: dev-deps
 	curl -XPOST 'localhost:4001/db/execute?pretty&timings' \
 	  -H "Content-Type: application/json" \
-	  -d '["CREATE TABLE satisfactions (gh_username TEXT, issue_url TEXT, feedback TEXT, satisfied_at DATETIME DEFAULT CURRENT_TIMESTAMP, issue_created DATETIME, issue_closed DATETIME)"]'
+	  -d '["CREATE TABLE satisfactions (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, gh_username TEXT, issue_url TEXT, feedback TEXT, satisfied_at DATETIME DEFAULT CURRENT_TIMESTAMP, issue_created DATETIME, issue_closed DATETIME)"]'
 
 
 .PHONY: run
@@ -49,3 +49,14 @@ fmt-check:
 
 .PHONY: ci
 ci: fmt-check vet
+
+.PHONY: fake-submit
+fake-submit:
+	curl http://localhost:8080/api/submit \
+		-H "Content-type: application/json" \
+		--data-binary '{"issueUrl":"https://github.com/github-csat/github-csat/issues/32", "feedback":"4/5"}'
+
+.PHONY: fake-query
+fake-query:
+	curl http://localhost:8080/api/satisfactions \
+		-H "Accept: application/json"

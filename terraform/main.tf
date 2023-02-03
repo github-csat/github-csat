@@ -46,10 +46,37 @@ provider "flux" {}
 resource "google_container_cluster" "prod" {
   name             = "github-csat-prod"
   location         = var.gcp_region
-  enable_autopilot = true
+
+  # We can't create a cluster with no node pool defined, but we want to only use
+  # separately managed node pools. So we create the smallest possible default
+  # node pool and immediately delete it.
+  remove_default_node_pool = true
+  initial_node_count       = 1
 
   # sure https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {}
+}
+
+resource "google_service_account" "github-csat-prod" {
+  account_id   = "github-csat-prod"
+  display_name = "Service Account"
+}
+
+resource "google_container_node_pool" "primary_preemptible_nodes" {
+  name       = "my-node-pool"
+  cluster    = google_container_cluster.prod.id
+  node_count = 2
+
+  node_config {
+    preemptible  = true
+    machine_type = "e2-standard-2"
+
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    service_account = google_service_account.github-csat-prod.email
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/cloud-platform"
+    ]
+  }
 }
 
 # https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/latest/submodules/auth
