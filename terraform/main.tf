@@ -40,7 +40,6 @@ provider "google" {
   zone    = var.gcp_zone
 }
 
-provider "flux" {}
 
 
 resource "google_container_cluster" "prod" {
@@ -77,27 +76,5 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
       "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
-}
-
-# https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/latest/submodules/auth
-module "gke_auth" {
-  source               = "terraform-google-modules/kubernetes-engine/google//modules/auth"
-  project_id           = var.gcp_project
-  cluster_name         = google_container_cluster.prod.name
-  location             = var.gcp_region
-  use_private_endpoint = false
-}
-
-provider "kubernetes" {
-  cluster_ca_certificate = module.gke_auth.cluster_ca_certificate
-  host                   = module.gke_auth.host
-  token                  = module.gke_auth.token
-}
-
-provider "kubectl" {
-  cluster_ca_certificate = module.gke_auth.cluster_ca_certificate
-  host                   = module.gke_auth.host
-  token                  = module.gke_auth.token
-  load_config_file       = false
 }
 

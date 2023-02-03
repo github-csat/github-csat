@@ -1,3 +1,29 @@
+provider "flux" {}
+
+# https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/latest/submodules/auth
+module "gke_auth" {
+  source               = "terraform-google-modules/kubernetes-engine/google//modules/auth"
+  project_id           = var.gcp_project
+  cluster_name         = google_container_cluster.prod.name
+  location             = var.gcp_region
+  use_private_endpoint = false
+
+  depends_on = [google_container_cluster.prod]
+}
+
+provider "kubernetes" {
+  cluster_ca_certificate = module.gke_auth.cluster_ca_certificate
+  host                   = module.gke_auth.host
+  token                  = module.gke_auth.token
+}
+
+provider "kubectl" {
+  cluster_ca_certificate = module.gke_auth.cluster_ca_certificate
+  host                   = module.gke_auth.host
+  token                  = module.gke_auth.token
+  load_config_file       = false
+}
+
 
 # Generate manifests
 data "flux_install" "main" {
