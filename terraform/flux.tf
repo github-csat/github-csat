@@ -46,6 +46,10 @@ resource "kubernetes_namespace" "flux_system" {
       metadata[0].labels,
     ]
   }
+  depends_on = [
+    google_container_cluster.prod,
+    google_container_node_pool.primary_preemptible_nodes,
+  ]
 }
 
 # Split multi-doc YAML with
