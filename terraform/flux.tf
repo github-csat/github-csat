@@ -8,7 +8,10 @@ module "gke_auth" {
   location             = var.gcp_region
   use_private_endpoint = false
 
-  depends_on = [google_container_cluster.prod]
+  depends_on = [
+    google_container_cluster.prod,
+    google_container_node_pool.primary_preemptible_nodes,
+  ]
 }
 
 provider "kubernetes" {

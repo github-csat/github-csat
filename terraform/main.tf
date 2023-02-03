@@ -62,7 +62,7 @@ resource "google_service_account" "github-csat-prod" {
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
-  name       = "my-node-pool"
+  name       = "github-csat-prod"
   cluster    = google_container_cluster.prod.id
   node_count = 2
 
