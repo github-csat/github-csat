@@ -64,11 +64,11 @@ resource "google_service_account" "github-csat-prod" {
 resource "google_container_node_pool" "primary_preemptible_nodes" {
   name       = "github-csat-prod"
   cluster    = google_container_cluster.prod.id
-  node_count = 2
+  node_count = 3
 
   node_config {
     preemptible  = true
-    machine_type = "e2-standard-2"
+    machine_type = "n1-standard-1"
 
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     service_account = google_service_account.github-csat-prod.email
