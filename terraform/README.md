@@ -7,6 +7,10 @@ Managed in terraform cloud -- https://app.terraform.io/app
 - `github-csat-prod` project
 - Service Account created manually via GCP cloud console, set in [#terraform-cloud](#terraform-cloud)
 
+```
+gcloud compute service-accounts create github-csat-prod --project github-csat-prod
+```
+
 ### Terraform Cloud
 
 
