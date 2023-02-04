@@ -18,7 +18,7 @@ make dev-ping-rqlite
 run the fronend
 
 ```
-cd frontend && npm i && npm start
+cd frontend && npm install && npm start
 ```
 
 **Note** - the above will open a browser tab at localhost:3000 - ignore this and close it. You'll use
