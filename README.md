@@ -18,10 +18,10 @@ make dev-ping-rqlite
 run the fronend
 
 ```
-cd frontend && npm start
+cd frontend && npm install && npm start
 ```
 
-**Note** - the above will open a browser tab at localhost:3000 - ignore this and close it. You'll use 
+**Note** - the above will open a browser tab at localhost:3000 - ignore this and close it. You'll use
 the go server to access the webpack dev server via a reverse proxy. (Read on for more)
 
 run the main go server
@@ -55,7 +55,7 @@ make fake-query | tail -n 1 | jq .
 ### RQLITE
 
 Data API: https://github.com/rqlite/rqlite/blob/master/DOC/DATA_API.md#querying-data
-Overview Video: https://www.philipotoole.com/rqlite-at-the-cmu-database-group/  
+Overview Video: https://www.philipotoole.com/rqlite-at-the-cmu-database-group/
 
 ### Production stack
 
