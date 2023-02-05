@@ -24,6 +24,29 @@ cd frontend && npm install && npm start
 **Note** - the above will open a browser tab at localhost:3000 - ignore this and close it. You'll use
 the go server to access the webpack dev server via a reverse proxy. (Read on for more)
 
+
+#### GitHub Parameters
+
+Navigate to the dev application in the github-csat org https://github.com/organizations/github-csat/settings/applications/2104030
+
+Grab the client ID and export it. Creat a unique client secret and export that too.
+
+```
+export GITHUB_CLIENT_ID=
+```
+
+```
+export GITHUB_CLIENT_SECRET=
+```
+
+Check these with
+
+```
+make check-env
+```
+
+#### Running the server
+
 run the main go server
 
 ```

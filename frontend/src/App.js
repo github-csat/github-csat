@@ -1,54 +1,33 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import "./App.css";
+import React, { createContext, useReducer } from 'react';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Satisfactions from "./components/Satisfactions";
+import { initialState, reducer } from "./store";
 
-const Loading = () => (
-  <div
-    className="App"
-    style={{ padding: '100px', fontWeight: 'lighter', fontSize: '36px' }}
-  >
-    Loading...
-  </div>
-);
+
+export const AuthContext = createContext();
 
 function App() {
-  const [error, setError] = useState('');
-  const [satisfactions, setSatisfactions] = useState([]);
-
-  useEffect(() => {
-    const url = '/api/satisfactions';
-    (async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-
-        setSatisfactions(json || []);
-      } catch (err) {
-        console.log('error', err);
-        setError(err);
-      }
-    })();
-  }, []);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <div className="App">
-      {!satisfactions && Loading()}
-      <div>
-        <div>
-          <h1>Hi hi world</h1>
-          <section className="container">
-            <ul>{satisfactions.map(Satisfaction)}</ul>
-          </section>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Satisfaction(satisfaction) {
-  return (
-    <li key={satisfaction.id}>
-      {satisfaction.id}: {satisfaction.issueUrl}
-    </li>
+      <AuthContext.Provider
+          value={{
+            state,
+            dispatch
+          }}
+      >
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+              <Route path="/auth" element={<Login/>}/>
+              <Route path="/auth/callback" element={<Login/>}/>
+              <Route path="/satisfactions" element={<Satisfactions/>}/>
+          </Routes>
+        </Router>
+      </AuthContext.Provider>
   );
 }
 
