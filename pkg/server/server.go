@@ -30,6 +30,9 @@ func Main() error {
 	apiRoutes.POST("/submit", handlers.APIHandleSubmit)
 	apiRoutes.GET("/satisfactions", handlers.APIHandleSatisfactions)
 
+	apiRoutes.GET("oauth/redirect", handlers.HandleOauthRedirect)
+	apiRoutes.GET("oauth/callback", handlers.HandleOauthCallback)
+
 	if conf.StaticDir != "" {
 		fmt.Println("adding static handler")
 		router.Use(static.Serve("/", static.LocalFile(conf.StaticDir, true)))
