@@ -82,7 +82,7 @@ func getUser(token string) (*GitHubUser, error) {
 	req, err := http.NewRequest("GET", "https://api.github.com/user", nil)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "create request")
 	}
 
 	req.Header.Add("Authorization", "Bearer "+token)
