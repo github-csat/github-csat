@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"github.com/pkg/errors"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
 	"log"
