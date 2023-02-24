@@ -91,7 +91,7 @@ func getUser(token string) (*GitHubUser, error) {
 	resp, err := client.Do(req)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "send user request with oath token")
 	}
 
 	var u GitHubUser
