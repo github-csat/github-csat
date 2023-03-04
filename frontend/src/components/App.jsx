@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0)
     const [error, setError] = useState('');
     const [satisfactions, setSatisfactions] = useState([]);
+
+    //todo redirect to login if not logged in
+
+    const isAdmin = true; //todo set state from API/session
 
     useEffect(() => {
         const url = '/api/satisfactions';
@@ -36,6 +41,8 @@ function App() {
               </div>
           </div>
       </div>
+      <div>Congrats on being an admin! You can view the results.</div>
+        <Link to={'/results'}>Results</Link>
     </div>
   )
 }
