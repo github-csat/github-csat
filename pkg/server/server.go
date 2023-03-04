@@ -32,6 +32,7 @@ func Main() error {
 
 	apiRoutes.GET("oauth/redirect", handlers.HandleOauthRedirect)
 	apiRoutes.GET("oauth/callback", handlers.HandleOauthCallback)
+	apiRoutes.GET("oauth/callback/fake", handlers.FakeOauthCookie)
 
 	if conf.StaticDir != "" {
 		fmt.Println("adding static handler")

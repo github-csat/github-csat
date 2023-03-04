@@ -10,7 +10,7 @@ import (
 
 func TestConfig(t *testing.T) {
 
-	parsedURL, _ := url.Parse("http://localhost:3000")
+	parsedURL, _ := url.Parse("http://localhost:5173")
 
 	tests := []struct {
 		name    string
@@ -24,8 +24,9 @@ func TestConfig(t *testing.T) {
 			expect: &Config{
 				GinAddress:       ":8080",
 				RQLiteURL:        "http://localhost:4001?disableClusterDiscovery=true",
-				ProxyFrontend:    "http://localhost:3000",
+				ProxyFrontend:    "http://localhost:5173",
 				ProxyFrontendURL: parsedURL,
+				SessionJWTSecret: "this-is-a-fake-jwt-secret",
 				GitHubEndpoint: oauth2.Endpoint{
 					AuthURL:  "https://github.com/login/oauth/authorize",
 					TokenURL: "https://github.com/login/oauth/access_token",
@@ -41,8 +42,9 @@ func TestConfig(t *testing.T) {
 			expect: &Config{
 				GinAddress:       ":8081",
 				RQLiteURL:        "http://rqlite.com:4001",
-				ProxyFrontend:    "http://localhost:3000",
+				ProxyFrontend:    "http://localhost:5173",
 				ProxyFrontendURL: parsedURL,
+				SessionJWTSecret: "this-is-a-fake-jwt-secret",
 				GitHubEndpoint: oauth2.Endpoint{
 					AuthURL:  "https://github.com/login/oauth/authorize",
 					TokenURL: "https://github.com/login/oauth/access_token",
@@ -58,10 +60,11 @@ func TestConfig(t *testing.T) {
 			expect: &Config{
 				GinAddress:         ":8080",
 				RQLiteURL:          "http://localhost:4001?disableClusterDiscovery=true",
-				ProxyFrontend:      "http://localhost:3000",
+				ProxyFrontend:      "http://localhost:5173",
 				ProxyFrontendURL:   parsedURL,
 				GitHubClientID:     "github-client-id",
 				GitHubClientSecret: "github-client-secret",
+				SessionJWTSecret:   "this-is-a-fake-jwt-secret",
 				GitHubEndpoint: oauth2.Endpoint{
 					AuthURL:  "https://github.com/login/oauth/authorize",
 					TokenURL: "https://github.com/login/oauth/access_token",
