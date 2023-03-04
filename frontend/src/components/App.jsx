@@ -41,8 +41,9 @@ function App() {
               </div>
           </div>
       </div>
-      <div>Congrats on being an admin! You can view the results.</div>
-        <Link to={'/results'}>Results</Link>
+        <div>You probably want to <a href={'/api/oauth/redirect'}>Log In</a></div>
+        {isAdmin && (<div>Congrats on being an admin! You can view the results.
+        <Link to={'/results'}>Results</Link></div>)}
     </div>
   )
 }

@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"golang.org/x/oauth2"
@@ -52,7 +53,7 @@ func (h *Handlers) HandleOauthCallback(c *gin.Context) {
 		c.String(500, "There was an error retrieving this user")
 	}
 
-	c.String(200, "oauth flow was successful, what's shakin' %s (%s)", u.Name, u.Login)
+	c.Redirect(http.StatusFound, fmt.Sprintf("/auth/callback?name=%s&handle=%s", u.Name, u.Login))
 }
 
 type GitHubUser struct {

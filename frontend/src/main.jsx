@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Root from "./routes/root";
 import ErrorPage from "./error-page";
+import LoggedIn from "./routes/login-config";
 
 
 
@@ -16,6 +17,11 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/auth/callback",
+        element: <LoggedIn />,
         errorElement: <ErrorPage />,
     },
 ]);
