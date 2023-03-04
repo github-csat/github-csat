@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/stretchr/testify/require"
+	"golang.org/x/oauth2"
 	"net/url"
 	"os"
 	"testing"
@@ -22,9 +23,13 @@ func TestConfig(t *testing.T) {
 			env:  nil,
 			expect: &Config{
 				GinAddress:       ":8080",
-				RQLiteURL:        "http://localhost:4001",
+				RQLiteURL:        "http://localhost:4001?disableClusterDiscovery=true",
 				ProxyFrontend:    "http://localhost:3000",
 				ProxyFrontendURL: parsedURL,
+				GitHubEndpoint: oauth2.Endpoint{
+					AuthURL:  "https://github.com/login/oauth/authorize",
+					TokenURL: "https://github.com/login/oauth/access_token",
+				},
 			},
 		},
 		{
@@ -38,6 +43,29 @@ func TestConfig(t *testing.T) {
 				RQLiteURL:        "http://rqlite.com:4001",
 				ProxyFrontend:    "http://localhost:3000",
 				ProxyFrontendURL: parsedURL,
+				GitHubEndpoint: oauth2.Endpoint{
+					AuthURL:  "https://github.com/login/oauth/authorize",
+					TokenURL: "https://github.com/login/oauth/access_token",
+				},
+			},
+		},
+		{
+			name: "GitHub credentials",
+			env: map[string]string{
+				"GITHUB_CLIENT_ID":     "github-client-id",
+				"GITHUB_CLIENT_SECRET": "github-client-secret",
+			},
+			expect: &Config{
+				GinAddress:         ":8080",
+				RQLiteURL:          "http://localhost:4001?disableClusterDiscovery=true",
+				ProxyFrontend:      "http://localhost:3000",
+				ProxyFrontendURL:   parsedURL,
+				GitHubClientID:     "github-client-id",
+				GitHubClientSecret: "github-client-secret",
+				GitHubEndpoint: oauth2.Endpoint{
+					AuthURL:  "https://github.com/login/oauth/authorize",
+					TokenURL: "https://github.com/login/oauth/access_token",
+				},
 			},
 		},
 	}
