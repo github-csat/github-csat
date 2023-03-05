@@ -9,10 +9,10 @@ module "gke_auth" {
   use_private_endpoint = false
 
   # don't do anything until the cluster is ready
-#  depends_on = [
-#    google_container_cluster.prod,
-#    google_container_node_pool.primary_preemptible_nodes,
-#  ]
+  #  depends_on = [
+  #    google_container_cluster.prod,
+  #    google_container_node_pool.primary_preemptible_nodes,
+  #  ]
 }
 
 provider "kubernetes" {

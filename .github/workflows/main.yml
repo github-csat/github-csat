@@ -7,5 +7,5 @@ jobs:
     name: static Checks
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - run: make ci
+      - uses: actions/checkout@master
+      - run: make ci

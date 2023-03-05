@@ -26,6 +26,7 @@ func (h *Handlers) HandleSessionPing(c *gin.Context) {
 
 type SessionDetails struct {
 	GitHubUser string `json:"gitHubUser"`
+	IsAdmin    bool   `json:"isAdmin"`
 }
 
 // This is a stub method. Today the cookie is just a raw string w/ the

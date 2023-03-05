@@ -3,6 +3,7 @@ dev-deps:
 	[ -x "$(shell which kubectl)" ] || brew install kubectl
 	[ -x "$(shell which kind)" ] || brew install kind
 	[ -x "$(shell which kustomize)" ] || brew install kustomize
+	npm --prefix frontend install
 
 .PHONY: dev-cluster
 dev-cluster: dev-deps
@@ -29,14 +30,26 @@ dev-init-table: dev-deps
 	  -d '["CREATE TABLE satisfactions (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, gh_username TEXT, issue_url TEXT, feedback TEXT, satisfied_at DATETIME DEFAULT CURRENT_TIMESTAMP, issue_created DATETIME, issue_closed DATETIME)"]'
 
 
-.PHONY: run
-run: 
+.PHONY: run-be
+run-be:
 	go run ./cmd/github-csat
 
-.PHONY: fmt
-fmt:
+.PHONY: run-fe
+run-fe:
+	npm --prefix frontend run dev
+
+.PHONY: fmt-be
+fmt-be:
 	go fmt ./...
 	cd terraform && terraform fmt
+
+.PHONY: fmt-fe
+fmt-fe:
+	npx --prefix frontend prettier --write frontend
+
+.PHONY: fmt
+fmt: fmt-be fmt-fe
+
 
 .PHONY: vet
 vet: 
@@ -45,11 +58,23 @@ vet:
 	
 .PHONY: fmt-check
 fmt-check:
-	test -z $(MAKE fmt)
+	test -z $(MAKE fmt-be)
+	npx --prefix frontend prettier --check frontend
+
+.PHONY: test-be
+test-be:
+	go test ./...
+
+.PHONY: test-fe
+test-fe:
+	npm --prefix frontend run coverage
 
 .PHONY: test
-test:
-	go test ./...
+test: test-be test-fe
+
+.PHONY: test-fe-watch
+test-fe-watch:
+	npm --prefix frontend run test
 
 .PHONY: ci
 ci: fmt-check vet test
@@ -64,3 +89,8 @@ fake-submit:
 fake-query:
 	curl http://localhost:8080/api/satisfactions \
 		-H "Accept: application/json"
+
+.PHONY: githooks
+githooks:
+	echo 'make ci' >> .git/hooks/pre-push
+	chmod +x .git/hooks/pre-push
