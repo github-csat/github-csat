@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/codingconcepts/env"
 	"github.com/pkg/errors"
+	"golang.org/x/oauth2"
 	"net/url"
 )
 
@@ -13,13 +14,23 @@ type Config struct {
 
 	ProxyFrontend    string `env:"PROXY_FRONTEND"`
 	ProxyFrontendURL *url.URL
+
+	GitHubClientID     string `env:"GITHUB_CLIENT_ID"`
+	GitHubClientSecret string `env:"GITHUB_CLIENT_SECRET"`
+
+	GitHubEndpoint oauth2.Endpoint
 }
 
 func LoadConfig() (*Config, error) {
 	config := Config{
 		GinAddress:    ":8080",
 		RQLiteURL:     "http://localhost:4001?disableClusterDiscovery=true",
-		ProxyFrontend: "http://localhost:3000",
+		ProxyFrontend: "http://localhost:5173",
+
+		GitHubEndpoint: oauth2.Endpoint{
+			AuthURL:  "https://github.com/login/oauth/authorize",
+			TokenURL: "https://github.com/login/oauth/access_token",
+		},
 	}
 
 	if err := env.Set(&config); err != nil {

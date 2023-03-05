@@ -2,29 +2,26 @@ package server
 
 import (
 	"encoding/json"
-	"github.com/pkg/errors"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/pkg/errors"
 	"golang.org/x/oauth2"
 	"log"
 	"net/http"
-	"os"
 )
 
-var gitHubEndpoint = oauth2.Endpoint{
-	AuthURL:  "https://github.com/login/oauth/authorize",
-	TokenURL: "https://github.com/login/oauth/access_token",
-}
-
-var OauthConfig = &oauth2.Config{
-	ClientID:     os.Getenv("GITHUB_CLIENT_ID"),
-	ClientSecret: os.Getenv("GITHUB_CLIENT_SECRET"),
-	Scopes:       []string{"read:user"},
-	Endpoint:     gitHubEndpoint,
+func (h *Handlers) getOauthConfig() *oauth2.Config {
+	return &oauth2.Config{
+		ClientID:     h.Config.GitHubClientID,
+		ClientSecret: h.Config.GitHubClientSecret,
+		Scopes:       []string{"read:user"},
+		Endpoint:     h.Config.GitHubEndpoint,
+	}
 }
 
 func (h *Handlers) HandleOauthRedirect(c *gin.Context) {
-	log.Printf("redirect to: %s", OauthConfig.AuthCodeURL(""))
-	c.Redirect(http.StatusFound, OauthConfig.AuthCodeURL(""))
+	log.Printf("redirect to: %s", h.getOauthConfig().AuthCodeURL(""))
+	c.Redirect(http.StatusFound, h.getOauthConfig().AuthCodeURL(""))
 }
 
 func (h *Handlers) HandleOauthCallback(c *gin.Context) {
@@ -41,7 +38,7 @@ func (h *Handlers) HandleOauthCallback(c *gin.Context) {
 
 	code, ok := c.GetQuery("code")
 
-	token, err := OauthConfig.Exchange(oauth2.NoContext, code)
+	token, err := h.getOauthConfig().Exchange(oauth2.NoContext, code)
 
 	if err != nil {
 		log.Println(err)
@@ -56,7 +53,7 @@ func (h *Handlers) HandleOauthCallback(c *gin.Context) {
 		c.String(500, "There was an error retrieving this user")
 	}
 
-	c.String(200, "oauth flow was successful, what's shakin' %s (%s)", u.Name, u.Login)
+	c.Redirect(http.StatusFound, fmt.Sprintf("/auth/callback?name=%s&handle=%s", u.Name, u.Login))
 }
 
 type GitHubUser struct {

@@ -25,7 +25,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 FROM cgr.dev/chainguard/static:latest
 
 COPY --from=build /work/github-csat /github-csat
-COPY --from=frontend /app/build /frontend
+COPY --from=frontend /app/dist /frontend
 ENV STATIC_DIR="/frontend"
 CMD ["/github-csat"]
 
