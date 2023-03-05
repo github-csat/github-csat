@@ -47,8 +47,12 @@ vet:
 fmt-check:
 	test -z $(MAKE fmt)
 
+.PHONY: test
+test:
+	go test ./...
+
 .PHONY: ci
-ci: fmt-check vet
+ci: fmt-check vet test
 
 .PHONY: fake-submit
 fake-submit:

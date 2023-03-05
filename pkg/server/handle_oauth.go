@@ -60,8 +60,7 @@ func (h *Handlers) setCookie(c *gin.Context, login string) {
 	// create a session, or sign a JWT that identifies this github user
 	// for now fake this, just put the handle in the cookie w/ no sig
 	sessionJWT := login
-	sessionMaxAge := 5000             // seconds? minutes? who knows?
-	sessionDomain := "localhost:8080" // change to a server config variable
+	sessionMaxAge := 5000 // seconds? minutes? who knows?
 	sessionDomain := h.Config.SessionCookieDomain
 
 	c.SetCookie(

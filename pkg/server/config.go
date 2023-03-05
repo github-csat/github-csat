@@ -27,10 +27,11 @@ type Config struct {
 
 func LoadConfig() (*Config, error) {
 	config := Config{
-		GinAddress:       ":8080",
-		RQLiteURL:        "http://localhost:4001?disableClusterDiscovery=true",
-		ProxyFrontend:    "http://localhost:5173",
-		SessionJWTSecret: "this-is-a-fake-jwt-secret",
+		GinAddress:          ":8080",
+		RQLiteURL:           "http://localhost:4001?disableClusterDiscovery=true",
+		ProxyFrontend:       "http://localhost:5173",
+		SessionJWTSecret:    "this-is-a-fake-jwt-secret",
+		SessionCookieDomain: "localhost:8080",
 
 		GitHubEndpoint: oauth2.Endpoint{
 			AuthURL:  "https://github.com/login/oauth/authorize",
