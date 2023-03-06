@@ -18,14 +18,20 @@ type Config struct {
 	GitHubClientID     string `env:"GITHUB_CLIENT_ID"`
 	GitHubClientSecret string `env:"GITHUB_CLIENT_SECRET"`
 
+	SessionJWTSecret    string `env:"SESSION_JWT_SECRET"`
+	SessionCookieDomain string `env:"SESSION_COOKIE_DOMAIN"`
+	SessionCookieMaxAge string `env:"SESSION_COOKIE_MAXAGE"`
+
 	GitHubEndpoint oauth2.Endpoint
 }
 
 func LoadConfig() (*Config, error) {
 	config := Config{
-		GinAddress:    ":8080",
-		RQLiteURL:     "http://localhost:4001?disableClusterDiscovery=true",
-		ProxyFrontend: "http://localhost:5173",
+		GinAddress:          ":8080",
+		RQLiteURL:           "http://localhost:4001?disableClusterDiscovery=true",
+		ProxyFrontend:       "http://localhost:5173",
+		SessionJWTSecret:    "this-is-a-fake-jwt-secret",
+		SessionCookieDomain: "localhost:8080",
 
 		GitHubEndpoint: oauth2.Endpoint{
 			AuthURL:  "https://github.com/login/oauth/authorize",

@@ -10,7 +10,7 @@ import (
 
 func TestConfig(t *testing.T) {
 
-	parsedURL, _ := url.Parse("http://localhost:3000")
+	parsedURL, _ := url.Parse("http://localhost:5173")
 
 	tests := []struct {
 		name    string
@@ -22,10 +22,12 @@ func TestConfig(t *testing.T) {
 			name: "defaults",
 			env:  nil,
 			expect: &Config{
-				GinAddress:       ":8080",
-				RQLiteURL:        "http://localhost:4001?disableClusterDiscovery=true",
-				ProxyFrontend:    "http://localhost:3000",
-				ProxyFrontendURL: parsedURL,
+				GinAddress:          ":8080",
+				RQLiteURL:           "http://localhost:4001?disableClusterDiscovery=true",
+				ProxyFrontend:       "http://localhost:5173",
+				ProxyFrontendURL:    parsedURL,
+				SessionJWTSecret:    "this-is-a-fake-jwt-secret",
+				SessionCookieDomain: "localhost:8080",
 				GitHubEndpoint: oauth2.Endpoint{
 					AuthURL:  "https://github.com/login/oauth/authorize",
 					TokenURL: "https://github.com/login/oauth/access_token",
@@ -39,10 +41,12 @@ func TestConfig(t *testing.T) {
 				"RQLITE_URL":  "http://rqlite.com:4001",
 			},
 			expect: &Config{
-				GinAddress:       ":8081",
-				RQLiteURL:        "http://rqlite.com:4001",
-				ProxyFrontend:    "http://localhost:3000",
-				ProxyFrontendURL: parsedURL,
+				GinAddress:          ":8081",
+				RQLiteURL:           "http://rqlite.com:4001",
+				ProxyFrontend:       "http://localhost:5173",
+				ProxyFrontendURL:    parsedURL,
+				SessionJWTSecret:    "this-is-a-fake-jwt-secret",
+				SessionCookieDomain: "localhost:8080",
 				GitHubEndpoint: oauth2.Endpoint{
 					AuthURL:  "https://github.com/login/oauth/authorize",
 					TokenURL: "https://github.com/login/oauth/access_token",
@@ -56,12 +60,14 @@ func TestConfig(t *testing.T) {
 				"GITHUB_CLIENT_SECRET": "github-client-secret",
 			},
 			expect: &Config{
-				GinAddress:         ":8080",
-				RQLiteURL:          "http://localhost:4001?disableClusterDiscovery=true",
-				ProxyFrontend:      "http://localhost:3000",
-				ProxyFrontendURL:   parsedURL,
-				GitHubClientID:     "github-client-id",
-				GitHubClientSecret: "github-client-secret",
+				GinAddress:          ":8080",
+				RQLiteURL:           "http://localhost:4001?disableClusterDiscovery=true",
+				ProxyFrontend:       "http://localhost:5173",
+				ProxyFrontendURL:    parsedURL,
+				GitHubClientID:      "github-client-id",
+				GitHubClientSecret:  "github-client-secret",
+				SessionJWTSecret:    "this-is-a-fake-jwt-secret",
+				SessionCookieDomain: "localhost:8080",
 				GitHubEndpoint: oauth2.Endpoint{
 					AuthURL:  "https://github.com/login/oauth/authorize",
 					TokenURL: "https://github.com/login/oauth/access_token",

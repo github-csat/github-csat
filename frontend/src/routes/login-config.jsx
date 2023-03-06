@@ -3,5 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 export default function LoggedIn() {
     const [searchParams, setSearchParams] = useSearchParams();
-    return <div>You're logged in as {searchParams.get("name")} ({searchParams.get("handle")})</div>
+    let name = searchParams.get("name");
+    let handle = searchParams.get("handle");
+    return <div>What's shakin' {name} ({handle})</div>
 }

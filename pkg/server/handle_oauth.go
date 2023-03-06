@@ -30,9 +30,8 @@ func (h *Handlers) HandleOauthCallback(c *gin.Context) {
 	if ok {
 		errDesc, _ := c.GetQuery("error_description")
 		log.Printf("oauth err code: %s: %s\n", val, errDesc)
-		// TODO: We can do better here on errors, maybe warrants a proper 500 page
-		c.String(500, "There was an error during oauth flow. (Check the logs)")
-		c.Abort()
+		// redirect and tell the frontend what to do with this
+		c.Redirect(http.StatusFound, fmt.Sprintf("/auth/callback?error=%s&error_description=%s", val, errDesc))
 		return
 	}
 
@@ -53,7 +52,26 @@ func (h *Handlers) HandleOauthCallback(c *gin.Context) {
 		c.String(500, "There was an error retrieving this user")
 	}
 
+	h.setCookie(c, u.Login)
 	c.Redirect(http.StatusFound, fmt.Sprintf("/auth/callback?name=%s&handle=%s", u.Name, u.Login))
+}
+
+func (h *Handlers) setCookie(c *gin.Context, login string) {
+	// create a session, or sign a JWT that identifies this github user
+	// for now fake this, just put the handle in the cookie w/ no sig
+	sessionJWT := login
+	sessionMaxAge := 5000 // seconds? minutes? who knows?
+	sessionDomain := h.Config.SessionCookieDomain
+
+	c.SetCookie(
+		"github-session",
+		sessionJWT,
+		sessionMaxAge,
+		"/api/",
+		sessionDomain,
+		true,
+		true,
+	)
 }
 
 type GitHubUser struct {
