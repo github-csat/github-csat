@@ -12,7 +12,6 @@ authentication mechanism(s).
 - Store anything sensitive (including signed tokens) in Secure HTTPOnly Cookies with limited path/domain scope
 - Cache login state on the frontend using something like localstorage, or maybe a non-httponly cookie
 
-
 ## Diagram
 
 [![github-login-arch](github-login-arch.png)](https://excalidraw.com/#json=Nl05_AyKd8sgF3Gu2LLaD,ljIx2UGiBw8ITC7DZPkRZw)
