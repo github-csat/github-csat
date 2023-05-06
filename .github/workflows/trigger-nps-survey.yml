@@ -6,17 +6,20 @@ on:
 
 jobs:
   trigger-nps-survey:
-    - name: Comment on issue
-      uses: peter-evans/create-or-update-comment@v3
-      with:
-        issue-number: ${{ github.event.issue.number }}
-        body: |
-          We are **so excited** to have closed this issue :sparkles:
-          
-          Please share feedback on how we did :man_dancing:
-          
-          # [😄][1] [🫥][2] [💀][3]
+    name: Trigger NPS Survey
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on issue
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            We are **so excited** to have closed this issue :sparkles:
 
-          [1]: https://example.com/good
-          [2]: https://example.com/meh
-          [3]: https://example.com/bad
+            Please share feedback on how we did :man_dancing:
+
+            # [😄][1] [🫥][2] [💀][3]
+
+            [1]: https://example.com/good
+            [2]: https://example.com/meh
+            [3]: https://example.com/bad
