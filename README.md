@@ -22,6 +22,12 @@ This just creates a dummy fake table.
 If you run it again, you'll get an error. 
 That's all fine, you're just checking to make sure the DB is reachable.
 
+Once the table's reachable, you can init a schema with:
+
+```
+make dev-init-table
+```
+
 Next, run the fronend vite dev server
 
 ```
