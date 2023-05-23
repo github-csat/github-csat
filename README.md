@@ -1,5 +1,12 @@
 # github-csat
 
+Real-time community feedback for your GitHub Issues.
+
+![Screenshot 2023-05-23 at 8 56 23 AM](https://github.com/github-csat/github-csat/assets/3730605/7062c6ac-17a3-4016-9329-af7d1a2bfe3d)
+
+
+## Contributing 
+
 [Current Iteration](https://github.com/orgs/github-csat/projects/1/views/2) | [Next Iteration](https://github.com/orgs/github-csat/projects/1/views/3)
 
 ### Setting up a development Environment
