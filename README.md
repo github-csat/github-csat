@@ -2,7 +2,7 @@
 
 Real-time community feedback for your GitHub Issues.
 
-![Screenshot 2023-05-23 at 8 56 23 AM](https://github.com/github-csat/github-csat/assets/3730605/7062c6ac-17a3-4016-9329-af7d1a2bfe3d)
+![Screenshot 2023-05-23 at 11 04 28 AM](https://github.com/github-csat/github-csat/assets/3730605/a4fd9903-12e1-4df0-a65c-98edb26c0a56)
 
 
 ## Contributing 
